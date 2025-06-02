@@ -66,19 +66,19 @@ function loop() {
 loop();
 
 // Show Scroll-To-Top Button
-const scrollBtn = document.createElement('button');
-scrollBtn.innerHTML = 'Go up';
-scrollBtn.className = 'scroll-top';
-document.body.appendChild(scrollBtn);
-scrollBtn.style.display = 'none';
+// const scrollBtn = document.createElement('button');
+// scrollBtn.innerHTML = 'Go up';
+// scrollBtn.className = 'scroll-top';
+// document.body.appendChild(scrollBtn);
+// scrollBtn.style.display = 'none';
 
-window.addEventListener('scroll', () => {
-    scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-});
+// window.addEventListener('scroll', () => {
+//     scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+// });
 
-scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+// scrollBtn.addEventListener('click', () => {
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+// });
 
 // Simple form submission alert (simulate response)
 document.querySelector('.contact-form')?.addEventListener('submit', (e) => {
