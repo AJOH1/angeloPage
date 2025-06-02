@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Email:', email);
             console.log('Message:', message);
 
-            alert('Thank you for your message! (Note: This form is for demo purposes and does not send emails yet.');
+            alert('Thank you for your message! (Note: This form is for demo purposes and does not send emails yet.)');
             contactForm.reset(); // Clear the form after "submission"
         });
     }
