@@ -103,3 +103,97 @@ const observer = new IntersectionObserver(entries => {
 revealElements.forEach(el => {
     observer.observe(el);
 });
+
+// Mobile navigation toggle
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const burger = document.querySelector('.burger');
+    navLinks.classList.toggle('active');
+    burger.classList.toggle('active');
+}
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Close mobile menu if open
+        const navLinks = document.querySelector('.nav-links');
+        const burger = document.querySelector('.burger');
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+        }
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Theme Toggle Logic
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-theme');
+
+    // Change icon based on theme
+    const themeIcon = document.querySelector('.theme-switch i');
+    if (body.classList.contains('dark-theme')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun'); // Sun icon for light mode
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon'); // Moon icon for dark mode
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Apply saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-switch i');
+
+    if (savedTheme) {
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            body.classList.remove('dark-theme');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+    } else {
+        // Optional: Check user's system preference if no theme is saved
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.classList.add('dark-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark'); // Save this preference
+        } else {
+            localStorage.setItem('theme', 'light'); // Save default light preference
+        }
+    }
+
+    // Optional: Add a simple form submission handler (if you're not using a backend)
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            console.log('Form Submitted!');
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Message:', message);
+
+            alert('Thank you for your message! (Note: This form is for demo purposes and does not send emails yet.');
+            contactForm.reset(); // Clear the form after "submission"
+        });
+    }
+});

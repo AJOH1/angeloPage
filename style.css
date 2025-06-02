@@ -1,17 +1,29 @@
 /* Basic Resets & Global Styles */
 :root {
-    --primary-color: #1E90FF;
-    /* Blue */
-    --secondary-color: #5e885e;
-    /* Gray */
-
+    /* Light Theme Variables */
+    --primary-color: #007bff; /* light Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --tertiary-color: #167acc; /* light blue*/
     --text-color: #333;
-    --bg-color: #F0F4F8;
-    --card-bg: #b9c0df79;
-    --border-color: #bdbec0;
+    --bg-color: #f8f9fa;
+    --card-bg: #fff;
+    --border-color: #dee2e6;
     --font-family: 'Arial', sans-serif;
-    /* Or choose a Google Font */
+    --h2-underline-color: var(--primary-color); /* Added for H2 underline */
 }
+
+/* Dark Theme Variables */
+body.dark-theme {
+    --primary-color: #60a5fa; /* Lighter blue for dark theme */
+    --secondary-color: #ffffff; /* Lighter gray */
+    --tertiary-color: #167acc; /* Light green */
+    --text-color: #e2e8f0; /* Light text */
+    --bg-color: #1a202c; /* Dark background */
+    --card-bg: #2d3748; /* Darker card background */
+    --border-color: #4a5568; /* Darker border */
+    --h2-underline-color: var(--primary-color); /* Stays primary color */
+}
+
 
 * {
     margin: 0;
@@ -20,12 +32,12 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-family);
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    color: var(--text-color); /* Use variable */
+    background-color: var(--bg-color); /* Use variable */
     scroll-behavior: smooth;
-    /* Smooth scrolling for anchor links */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
 }
 
 .container {
@@ -36,18 +48,16 @@ body {
 
 a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
 }
 
 ul {
     list-style: none;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--text-color); /* Use variable */
 }
 
 h2 {
@@ -66,15 +76,15 @@ h2::after {
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background-color: var(--primary-color);
+    background-color: var(--h2-underline-color); /* Use variable for underline */
     border-radius: 2px;
 }
 
 /* Buttons */
 .btn {
     display: inline-block;
-    background: var(--primary-color);
-    color: #ffff;
+    background: var(--primary-color); /* Use variable */
+    color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -84,35 +94,29 @@ h2::after {
 }
 
 .btn:hover {
-    background-color: darken(var(--primary-color), 10%);
-    /* This won't work in pure CSS, use a slightly darker hex */
-    background-color: #00BFFF;
-    /* A Lighter blue */
+    filter: brightness(1.1); /* A generic way to make it slightly brighter on hover */
 }
 
 .btn-primary {
     background: var(--primary-color);
 }
-
 .btn-primary:hover {
-    background: #0056b3;
+    filter: brightness(1.1);
 }
 
 .btn-secondary {
-    background: #083747;
+    background: #167acc;
     margin-right: 10px;
 }
-
 .btn-secondary:hover {
-    background: #6060c0;
+    filter: brightness(1.9);
 }
 
 .btn-tertiary {
-    background: #083747;
+    background:#167acc ;
 }
-
 .btn-tertiary:hover {
-    background: #6060c0;
+    filter: brightness(1.9);
 }
 
 .btn-sm {
@@ -124,14 +128,18 @@ h2::after {
 
 /* Header & Navigation */
 header {
-    background: var(--card-bg);
+    background: var(--card-bg); /* Use variable */
     padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); /* Use variable */
     position: sticky;
     top: 0;
     z-index: 1000;
-    color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme header {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Darker shadow for dark theme */
 }
 
 header .container {
@@ -143,7 +151,7 @@ header .container {
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
 }
 
 .nav-links {
@@ -152,13 +160,13 @@ header .container {
 }
 
 .nav-links a {
-    color: var(--text-color);
+    color: var(--text-color); /* Use variable */
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
 }
 
 .burger {
@@ -166,25 +174,39 @@ header .container {
     cursor: pointer;
     flex-direction: column;
     gap: 5px;
+    z-index: 1001; /* Ensure burger is above menu when open */
 }
 
 .burger div {
     width: 25px;
     height: 3px;
-    background-color: var(--text-color);
+    background-color: var(--text-color); /* Use variable */
     transition: all 0.3s ease;
+}
+
+/* Theme Switch Button */
+.theme-switch {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color); /* Icon color */
+    margin-left: 20px; /* Space from nav links */
+    transition: color 0.3s ease;
+}
+
+.theme-switch:hover {
+    color: var(--primary-color);
 }
 
 /* Hero Section */
 .hero-section {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color); /* Use variable */
     padding: 80px 0;
     text-align: center;
     min-height: 80vh;
-    /* Takes up most of the viewport height */
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
 }
 
 .hero-content {
@@ -194,7 +216,6 @@ header .container {
     justify-content: center;
     gap: 50px;
     flex-wrap: wrap;
-    /* Allows wrapping on smaller screens */
 }
 
 .hero-text {
@@ -207,12 +228,13 @@ header .container {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
+    color: var(--text-color); /* Use variable */
 }
 
 .hero-text p {
     font-size: 1.3rem;
     margin-bottom: 2rem;
-    color: var(--secondary-color);
+    color: var(--secondary-color); /* Use variable */
 }
 
 .hero-ctas {
@@ -231,14 +253,14 @@ header .container {
     width: 100%;
     height: auto;
     border-radius: 50%;
-    /* Makes image round */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Section Spacing */
 section {
     padding: 80px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); /* Use variable */
+    transition: border-color 0.3s ease;
 }
 
 section:last-of-type {
@@ -255,6 +277,7 @@ section:last-of-type {
 .about-section p {
     margin-bottom: 1rem;
     font-size: 1.1rem;
+    color: var(--text-color); /* Use variable */
 }
 
 .about-section .btn {
@@ -270,15 +293,20 @@ section:last-of-type {
 }
 
 .skill-category {
-    background: var(--card-bg);
+    background: var(--card-bg); /* Use variable */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .skill-category {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Darker shadow */
 }
 
 .skill-category h3 {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
     margin-bottom: 1.5rem;
     font-size: 1.4rem;
 }
@@ -291,17 +319,19 @@ section:last-of-type {
 }
 
 .skill-category li {
-    background: #2e3cff3a;
+    background: var(--border-color); /* Use variable, e.g., a lighter border color */
+    color: var(--text-color); /* Use variable */
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 0.95rem;
     display: flex;
     align-items: center;
     gap: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .skill-category li i {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
 }
 
 /* Projects Section */
@@ -313,13 +343,17 @@ section:last-of-type {
 }
 
 .project-card {
-    background: var(--card-bg);
+    background: var(--card-bg); /* Use variable */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+}
+
+body.dark-theme .project-card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25); /* Darker shadow */
 }
 
 .project-card:hover {
@@ -336,13 +370,14 @@ section:last-of-type {
 .project-card h3 {
     margin: 15px 15px 10px;
     font-size: 1.5rem;
+    color: var(--text-color); /* Use variable */
 }
 
 .project-card p {
     padding: 0 15px;
     margin-bottom: 15px;
     flex-grow: 1;
-    /* Allows description to take up available space */
+    color: var(--text-color); /* Use variable */
 }
 
 .project-tech {
@@ -351,13 +386,14 @@ section:last-of-type {
 
 .project-tech span {
     display: inline-block;
-    background: #2e3cff3a;
-    color: #000000;
+    background: var(--border-color); /* Use variable */
+    color: var(--text-color); /* Use variable */
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 0.85rem;
     margin-right: 8px;
     margin-bottom: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .project-links {
@@ -372,7 +408,6 @@ section:last-of-type {
 /* Contact Section */
 .contact-section {
     text-align: center;
-    justify-content: center;
 }
 
 .contact-section p {
@@ -381,17 +416,21 @@ section:last-of-type {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    color: rgb(31, 29, 59);
-
+    color: var(--text-color); /* Use variable */
 }
 
 .contact-form {
     max-width: 600px;
     margin: 0 auto 30px;
-    background: var(--card-bg);
+    background: var(--card-bg); /* Use variable */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .contact-form {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Darker shadow */
 }
 
 .form-group {
@@ -403,26 +442,34 @@ section:last-of-type {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #383981;
+    color: var(--text-color); /* Use variable */
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Use variable */
     border-radius: 5px;
     font-size: 1rem;
     font-family: var(--font-family);
-    /* Inherit font */
+    background-color: var(--bg-color); /* Ensures input background matches */
+    color: var(--text-color); /* Ensures input text color matches */
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    border-color: var(--primary-color); /* Use variable */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Adjusted for general primary */
 }
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25); /* Dark theme primary color equivalent */
+}
+
 
 .contact-form button {
     width: auto;
@@ -438,22 +485,29 @@ section:last-of-type {
 
 .social-links a {
     font-size: 2.2rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Use variable */
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Use variable */
 }
 
 /* Footer */
 footer {
-    background: #b1bdc9;
-    color: #080808;
+    background: #333; /* This can be a static dark color, or adjust with variables */
+    color: #fff; /* This can be a static light color, or adjust with variables */
     text-align: center;
     padding: 20px 0;
     font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+body.dark-theme footer {
+    background: #1a202c; /* Same as dark body background */
+    color: var(--text-color); /* Use dark theme text color */
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -463,12 +517,16 @@ footer {
         width: 100%;
         position: absolute;
         top: 60px;
-        /* Adjust based on header height */
         left: 0;
-        background: var(--card-bg);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        background: var(--card-bg); /* Use variable */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         padding: 20px 0;
         align-items: center;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark-theme .nav-links {
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
     }
 
     .nav-links.active {
@@ -485,7 +543,6 @@ footer {
 
     .hero-content {
         flex-direction: column-reverse;
-        /* Puts image above text on mobile */
         text-align: center;
     }
 
@@ -513,17 +570,22 @@ footer {
     .projects-grid {
         grid-template-columns: 1fr;
     }
+
+    .theme-switch {
+        position: absolute; /* Position the theme switch for mobile */
+        right: 70px; /* Adjust as needed */
+        top: 1rem; /* Align with header */
+        z-index: 1001; /* Ensure it's clickable */
+    }
 }
 
 /* Burger Animation */
 .burger.active .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
-
 .burger.active .line2 {
     opacity: 0;
 }
-
 .burger.active .line3 {
-    transform: rotate(45deg) translate(-5px, -6px);
+    transform: rotate(45deg) translate(-5px, -6px);
 }
