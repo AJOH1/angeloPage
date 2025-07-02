@@ -1,3 +1,5 @@
+// Enhanced JavaScript for Dynamic & Reactive Portfolio
+
 // Burger Menu Toggle
 function toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
@@ -7,17 +9,26 @@ function toggleMenu() {
 }
 
 // Close mobile menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
+document.querySelectorAll('.nav-links a').forEach(link => {gt
     link.addEventListener('click', () => {
         document.querySelector('.nav-links').classList.remove('active');
         document.querySelector('.burger').classList.remove('active');
     });
 });
 
-// Sticky Header Shadow on Scroll
+// Sticky Header Shadow & Dynamic Hide/Show
+let lastScrollY = window.scrollY;
+const header = document.querySelector('header');
+
 window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
     header.classList.toggle('scrolled', window.scrollY > 10);
+
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+        header.style.transform = "translateY(-100%)";
+    } else {
+        header.style.transform = "translateY(0)";
+    }
+    lastScrollY = window.scrollY;
 });
 
 // Typing Effect in Hero Section
@@ -66,30 +77,23 @@ function loop() {
 loop();
 
 // Show Scroll-To-Top Button
-// const scrollBtn = document.createElement('button');
-// scrollBtn.innerHTML = 'Go up';
-// scrollBtn.className = 'scroll-top';
-// document.body.appendChild(scrollBtn);
-// scrollBtn.style.display = 'none';
+const scrollBtn = document.querySelector('.scroll-top');
+window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('show', window.scrollY > 300);
+});
+scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
-// window.addEventListener('scroll', () => {
-//     scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-// });
-
-// scrollBtn.addEventListener('click', () => {
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-// });
-
-// Simple form submission alert (simulate response)
+// Form Submission Simulation
 document.querySelector('.contact-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     alert('Thanks for reaching out! I’ll get back to you soon.');
     e.target.reset();
 });
 
-// Optional: Reveal animations on scroll
-const revealElements = document.querySelectorAll('section');
-
+// Reveal Sections on Scroll
+const revealElements = document.querySelectorAll('.fade-in-up');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -99,25 +103,14 @@ const observer = new IntersectionObserver(entries => {
 }, {
     threshold: 0.1
 });
+revealElements.forEach(el => observer.observe(el));
 
-revealElements.forEach(el => {
-    observer.observe(el);
-});
-
-// Mobile navigation toggle
-function toggleMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const burger = document.querySelector('.burger');
-    navLinks.classList.toggle('active');
-    burger.classList.toggle('active');
-}
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// Smooth Scrolling
+const navAnchors = document.querySelectorAll('a[href^="#"]');
+navAnchors.forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
 
-        // Close mobile menu if open
         const navLinks = document.querySelector('.nav-links');
         const burger = document.querySelector('.burger');
         if (navLinks.classList.contains('active')) {
@@ -125,75 +118,60 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             burger.classList.remove('active');
         }
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
     });
 });
 
-// Theme Toggle Logic
+// Theme Toggle
 function toggleTheme() {
     const body = document.body;
     body.classList.toggle('dark-theme');
 
-    // Change icon based on theme
     const themeIcon = document.querySelector('.theme-switch i');
     if (body.classList.contains('dark-theme')) {
         themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun'); // Sun icon for light mode
+        themeIcon.classList.add('fa-sun');
         localStorage.setItem('theme', 'dark');
     } else {
         themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon'); // Moon icon for dark mode
+        themeIcon.classList.add('fa-moon');
         localStorage.setItem('theme', 'light');
     }
 }
 
-// Apply saved theme on page load
-document.addEventListener('DOMContentLoaded', () => {
+// Load Saved Theme
+window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
-    const body = document.body;
     const themeIcon = document.querySelector('.theme-switch i');
 
-    if (savedTheme) {
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        } else {
-            body.classList.remove('dark-theme');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-        }
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
     } else {
-        // Optional: Check user's system preference if no theme is saved
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            body.classList.add('dark-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark'); // Save this preference
-        } else {
-            localStorage.setItem('theme', 'light'); // Save default light preference
-        }
+        document.body.classList.remove('dark-theme');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
     }
 
-    // Optional: Add a simple form submission handler (if you're not using a backend)
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
+    // Highlight Active Nav Link on Scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 80;
+            if (pageYOffset >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
 
-            console.log('Form Submitted!');
-            console.log('Name:', name);
-            console.log('Email:', email);
-            console.log('Message:', message);
-
-            alert('Thank you for your message! (Note: This form is for demo purposes and does not send emails yet.)');
-            contactForm.reset(); // Clear the form after "submission"
-        });
-    }
+        navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}` || link.getAttribute('href') === `./#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
 });

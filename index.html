@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Michael Ekeh's portfolio – Junior Front-End Developer skilled in HTML, CSS, JavaScript, and Python. Explore projects, skills, and get in touch!">
+
     <title>Angelo- Junior Developer Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -15,16 +17,17 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#logo" class="logo">ANGELO</a>
-                <ul class="nav-links">
+
+                <a href="#hero" class="logo">ANGELO</a>
+                <ul class=" nav-links">
                     <li><a href="./#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="your_resume.pdf" target="_blank" class="btn btn-primary">Resume</a></li>
+                    <li><a href="./data/resume.pdf" target="_blank" class="btn btn-primary" download>Resume</a></li>
                 </ul>
-                <div class="theme-switch" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i> </div>
+                <div class="theme-switch" onclick="toggleTheme()"><i class="fas fa-moon"></i> </div>
+                <!-- <div class="theme-switch" onclick="toggleTheme()"><i class="fas fa-moon"></i> </div> -->
                 <div class="burger" onclick="toggleMenu()">
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -34,7 +37,7 @@
         </div>
     </header>
 
-    <section id="hero" class="hero-section">
+    <section id="hero" class="hero-section fade-in-up">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
@@ -46,13 +49,13 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="img/pic.jpg" alt="Portait of Michael Ekeh, Junior Dveloper">
+                    <img src="img/pic.jpg" alt="Portrait of Michael Ekeh, Junior Dveloper">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-section">
+    <section id="about" class="about-section fade-in-up">
         <div class="container">
             <h2>About Me.</h2>
             <div class="about-content">
@@ -71,12 +74,12 @@
                     Currently, I'm looking for an entry-level position where I can apply my skills, contribute to
                     real-world projects, and continue my learning journey in a dynamic team.
                 </p>
-                <a href="Michael's cv.pdf" target="_blank" class="btn btn-primary">Download Resume</a>
+                <a href="Michael_cv.pdf" target="_blank" class="btn btn-primary">Download Resume</a>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="skills-section">
+    <section id="skills" class="skills-section fade-in-up">
         <div class="container">
             <h2>My Skills.</h2>
             <div class="skills-grid">
@@ -116,13 +119,13 @@
         </div>
     </section>
 
-    <section id="projects" class="projects-section">
+    <section id="projects" class="projects-section fade-in-up">
         <div class="container">
             <h2>My Projects.</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <img src="img/pic2.png" alt="Project 1 Thumbnail">
-                    <h3>Project Title One</h3>
+                    <h3></h3>
                     <p>A responsive sign-in and sign-up form with card interface, built using Bootstrap and custom css.
                     </p>
                     <div class="project-tech">
@@ -138,7 +141,7 @@
 
                 <div class="project-card">
                     <img src="img/pic3.png" alt="Project 2 Thumbnail">
-                    <h3>Project Title Two</h3>
+                    <h3>Sign-in Form UI</h3>
                     <p>A simple hotel array, that allows customer to filter list by city using JavaScript.</p>
                     <div class="project-tech">
                         <span>HTML</span> <span>CSS</span> <span>JavaScript</span>
@@ -164,16 +167,16 @@
                         <a href="https://github.com/yourusername/project3" target="_blank" class="btn-sm">GitHub <i
                                 class="fab fa-github"></i></a>
                     </div> -->
-                </div>
             </div>
+        </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact-section fade-in-up">
         <div class="container">
             <h2>Get in Touch.</h2>
             <p>I'm excited to connect and explore opportunities! Feel free to reach out.</p>
-            <form class="contact-form" action="your_server_endpoint" method="POST">
+            <form class="contact-form" action="#" onsubmit="event.preventDefault(); alert('Form submission not yet set up.')">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -202,6 +205,10 @@
             <p>&copy; 2025 Angelo. All rights reserved.</p>
         </div>
     </footer>
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" class="scroll-top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 
     <script src="script.js"></script>
 </body>
