@@ -9,7 +9,7 @@ function toggleMenu() {
 }
 
 // Close mobile menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {gt
+document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         document.querySelector('.nav-links').classList.remove('active');
         document.querySelector('.burger').classList.remove('active');
