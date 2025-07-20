@@ -745,3 +745,28 @@ nav {
     opacity: 1;
     transform: translateY(0);
 }
+/* Header Action Container (Mobile) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    position: absolute;
+    right: 20px;
+    top: 1.2rem;
+    z-index: 1001;
+  }
+
+  .theme-switch {
+    position: static;
+    margin-left: 0;
+  }
+
+  .burger {
+    padding: 0;
+  }
+}
